@@ -7,7 +7,7 @@
 # return the set of key values
 #
 # Get the cluster name and arn; add logic if multiple MSK Clusters exist
-lines=$(aws kafka  list-clusters-v2|jq -r '  .ClusterInfoList[] | [ .ClusterName, .ClusterArn , .Provisioned.ZookeeperConnectString ] |@tsv ')
+lines=$(aws kafkk  list-clusters-v2|jq -r '  .ClusterInfoList[] | [ .ClusterName, .ClusterArn , .Provisioned.ZookeeperConnectString ] |@tsv ')
 arrIN=($lines)
 name=${arrIN[0]}
 arn=${arrIN[1]}
