@@ -16,53 +16,53 @@ Partitioning
 While the default partitioning strategy is round-robin, it is possible to manually define the partition keys to alleviate dead-lock situations however it is higly dependant on your graph data model and the batch size of the Kafka Sink transactions.   
 https://debezium.io/documentation/reference/stable/connectors/mysql.html#mysql-property-message-key-columns
 ## Example debezium configuration
-"acks": "1",
-"column.include.list": " mskdev.cdc_msk_test.id, mskdev.cdc_msk_test.ue_id, mskdev.cdc_msk_test.ue_name, mskdev.cdc_msk_test.ue_count, mskdev.cdc_msk_test.cdc_modified_ts, mskdev.cdc_msk_test.cdc_status",
-"connector.class": "io.debezium.connector.mysql.MySqlConnector",
-"database.history.kafka.bootstrap.servers": "b-1.redacted.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.redacted.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
-"database.history.kafka.topic": "mskdcdc_history",
-"database.history.store.only.captured.tables.ddl": "true",
-"database.hostname": "dts-aws-msk.redacted.us-east-2.rds.amazonaws.com",
-"database.include.list": "mskdev",
-"database.port": "3306",
-"database.server.id": "redacted",
-"database.server.name": "mskdev_cdc",
-"database.user": "admin",
-"database.password": "redacted",
-"database.whitelist": "mskdev",
-"errors.log.enable": "true",
-"errors.log.include.messages": "true",
-"errors.retry.delay.max.ms": "10000",
-"errors.retry.timeout": "-1",
-"errors.tolerance": "all",
-"include.schema.changes": "false",
-"key.converter": "org.apache.kafka.connect.storage.StringConverter",
-"key.converter.schemas.enable": "false",
-"value.converter": "org.apache.kafka.connect.json.JsonConverter",
-"value.converter.schemas.enable": "false",
-"linger.ms": "30",
-"max.batch.size": "10001",
-"max.poll.records": "10000",
-"max.queue.size": "20000",
-"poll.interval.ms": "50",
-"reconnect.backoff.max.ms": "1000",
-"reconnect.backoff.ms": "50",
-"request.timeout.ms": "120000",
-"retries": "5",
-"retry.backoff.ms": "100",
-"snapshot.mode": "when_needed",
-"table.ignore.builtin": "true",
-"table.include.list": "mskdev.cdc_msk_test",
-"tasks.max": "1",
-"topic.creation.default.cleanup.policy": "compact",
-"topic.creation.default.compression.type": "lz4",
-"topic.creation.default.partitions": "1",
-"topic.creation.default.replication.factor": "2",
-"transforms": "topicname,route",
-"transforms.route.language": "jsr223.groovy",
-"transforms.route.topic.expression": "(value.op in ['c','u','d'] )   ? topic : null",
-"transforms.route.type": "io.debezium.transforms.ContentBasedRouter",
-"transforms.topicname.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
-"transforms.topicname.replacement": "msk_$3",
-"transforms.topicname.type": "org.apache.kafka.connect.transforms.RegexRouter"
-}
+"acks": "1",<br>
+"column.include.list": " mskdev.cdc_msk_test.id, mskdev.cdc_msk_test.ue_id, mskdev.cdc_msk_test.ue_name, mskdev.cdc_msk_test.ue_count, mskdev.cdc_msk_test.cdc_modified_ts, mskdev.cdc_msk_test.cdc_status",<br>
+"connector.class": "io.debezium.connector.mysql.MySqlConnector",<br>
+"database.history.kafka.bootstrap.servers": "b-1.redacted.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.redacted.leit85.c6.kafka.us-east-2.amazonaws.com:9092",<br>
+"database.history.kafka.topic": "mskdcdc_history",<br>
+"database.history.store.only.captured.tables.ddl": "true",<br>
+"database.hostname": "dts-aws-msk.redacted.us-east-2.rds.amazonaws.com",<br>
+"database.include.list": "mskdev",<br>
+"database.port": "3306",<br>
+"database.server.id": "redacted",<br>
+"database.server.name": "mskdev_cdc",<br>
+"database.user": "admin",<br>
+"database.password": "redacted",<br>
+"database.whitelist": "mskdev",<br>
+"errors.log.enable": "true",<br>
+"errors.log.include.messages": "true",<br>
+"errors.retry.delay.max.ms": "10000",<br>
+"errors.retry.timeout": "-1",<br>
+"errors.tolerance": "all",<br>
+"include.schema.changes": "false",<br>
+"key.converter": "org.apache.kafka.connect.storage.StringConverter",<br>
+"key.converter.schemas.enable": "false",<br>
+"value.converter": "org.apache.kafka.connect.json.JsonConverter",<br>
+"value.converter.schemas.enable": "false",<br>
+"linger.ms": "30",<br>
+"max.batch.size": "10001",<br>
+"max.poll.records": "10000",<br>
+"max.queue.size": "20000",<br>
+"poll.interval.ms": "50",<br>
+"reconnect.backoff.max.ms": "1000",<br>
+"reconnect.backoff.ms": "50",<br>
+"request.timeout.ms": "120000",<br>
+"retries": "5",<br>
+"retry.backoff.ms": "100",<br>
+"snapshot.mode": "when_needed",<br>
+"table.ignore.builtin": "true",<br>
+"table.include.list": "mskdev.cdc_msk_test",<br>
+"tasks.max": "1",<br>
+"topic.creation.default.cleanup.policy": "compact",<br>
+"topic.creation.default.compression.type": "lz4",<br>
+"topic.creation.default.partitions": "1",<br>
+"topic.creation.default.replication.factor": "2",<br>
+"transforms": "topicname,route",<br>
+"transforms.route.language": "jsr223.groovy",<br>
+"transforms.route.topic.expression": "(value.op in ['c','u','d'] )   ? topic : null",<br>
+"transforms.route.type": "io.debezium.transforms.ContentBasedRouter",<br>
+"transforms.topicname.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",<br>
+"transforms.topicname.replacement": "msk_$3",<br>
+"transforms.topicname.type": "org.apache.kafka.connect.transforms.RegexRouter"<br>
+}<br>
