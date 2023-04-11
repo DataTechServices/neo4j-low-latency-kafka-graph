@@ -9,16 +9,16 @@
   "acks": "1",
   "column.include.list": " mskdev.cdc_msk_test.*,mskdev.cdc_outbox.*",
   "connector.class": "io.debezium.connector.mysql.MySqlConnector",
-  "database.history.kafka.bootstrap.servers": "b-1.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
+  "database.history.kafka.bootstrap.servers": "b-1.redacted.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
   "database.history.kafka.topic": "msk-cdc-history",
   "database.history.store.only.captured.tables.ddl": "true",
-  "database.hostname": "dts-aws-msk.cuhcrxyty2se.us-east-2.rds.amazonaws.com",
+  "database.hostname": "dts-aws-msk.redacted.us-east-2.rds.amazonaws.com",
   "database.include.list": "mskdev",
   "database.port": "3306",
-  "database.server.id": "1691652969",
+  "database.server.id": "redacted",
   "database.server.name": "mskdev_cdc",
   "database.user": "admin",
-  "database.password": "de3FR$gt5",
+  "database.password": "redacted",
   "database.whitelist": "mskdev",
   "errors.log.enable": "true",
   "errors.log.include.messages": "true",
@@ -59,7 +59,7 @@
     "connectorName": "msk-cdc-test-deb181-src-v1",
     "kafkaCluster": {
         "apacheKafkaCluster": {
-            "bootstrapServers": "b-1.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
+            "bootstrapServers": "b-1.redacted.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
 	"vpc": {
         	"securityGroups": [
          		"sg-4b29653c"

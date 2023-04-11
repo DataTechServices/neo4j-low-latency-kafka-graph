@@ -1,5 +1,0 @@
-{ events : { 
-rob
-before:null,after:{id:3794,ue_id:417,ue_name:"test",ue_count:429,cdc_modified_ts:1673989998000,cdc_status:"pending"},source:{version:"1.8.1.Final",connector:"mysql",name:"mskdev_cdc",ts_ms:1673989998000,snapshot:"false",db:"mskdev",sequence:null,table:"cdc_msk_test",server_id:1691652969,gtid:null,file:"mysql-bin-changelog.000911",pos:1185,row:0,thread:null,query:null},op:"c",
-ts_ms:1673989998683,transaction:null}
-}

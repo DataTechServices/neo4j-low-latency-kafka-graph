@@ -9,16 +9,16 @@
   "acks": "1",
   "column.include.list": " mskdev.cdc_msk_test.id, mskdev.cdc_msk_test.ue_id, mskdev.cdc_msk_test.ue_name, mskdev.cdc_msk_test.ue_count, mskdev.cdc_msk_test.cdc_modified_ts, mskdev.cdc_msk_test.cdc_status",
   "connector.class": "io.debezium.connector.mysql.MySqlConnector",
-  "database.history.kafka.bootstrap.servers": "b-1.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
+  "database.history.kafka.bootstrap.servers": "b-1.redacted.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
   "database.history.kafka.topic": "mskdcdc_history",
   "database.history.store.only.captured.tables.ddl": "true",
-  "database.hostname": "dts-aws-msk.cuhcrxyty2se.us-east-2.rds.amazonaws.com",
+  "database.hostname": "dts-aws-msk.redacted.us-east-2.rds.amazonaws.com",
   "database.include.list": "mskdev",
   "database.port": "3306",
-  "database.server.id": "1691652969",
+  "database.server.id": "redacted",
   "database.server.name": "mskdev_cdc",
   "database.user": "admin",
-  "database.password": "de3FR$gt5",
+  "database.password": "redacted",
   "database.whitelist": "mskdev",
   "errors.log.enable": "true",
   "errors.log.include.messages": "true",
@@ -59,16 +59,16 @@
     "connectorName": "cdc-msk-test-int-deb181-src-v4",
     "kafkaCluster": {
         "apacheKafkaCluster": {
-            "bootstrapServers": "b-1.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
+            "bootstrapServers": "b-1.redacted.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
 	"vpc": {
         	"securityGroups": [
-			"sg-0dcc18a67fb9fb463",
-         		"sg-4b29653c"
+			"sg-redacted",
+         		"sg-redacted"
         	],
         	"subnets": [
-          	  "subnet-ee51ea85",
-          	  "subnet-b2257dfe",
-          	  "subnet-586a9b25"
+          	  "subnet-redacted",
+          	  "subnet-redacted",
+          	  "subnet-redacted"
                 ]
       	 }
         }
@@ -87,7 +87,7 @@
       		"logGroup": "msk-test"
     	},
     	"s3": {
-      	"bucket": "dts5280-aws-s3",
+      	"bucket": "redacted-aws-s3",
       	"enabled": true,
       	"prefix": "msk"
    	 }
@@ -96,14 +96,14 @@
     "plugins": [
         {
             "customPlugin": {
-                "customPluginArn": "arn:aws:kafkaconnect:us-east-2:976836375963:custom-plugin/debz-full-181/96d9687b-3ce9-429d-8238-5a23231040b9-3",
+                "customPluginArn": "arn:aws:kafkaconnect:us-east-2:redacted:custom-plugin/debz-full-181/96d9687b-3ce9-429d-8238-5a23231040b9-3",
                 "revision": 1
             }
         }
     ],
-    "serviceExecutionRoleArn": "arn:aws:iam::976836375963:role/MSKTestExecutionRole",
+    "serviceExecutionRoleArn": "arn:aws:iam::redacted:role/MSKTestExecutionRole",
     "workerConfiguration": {
         "revision": 1,
-        "workerConfigurationArn": "arn:aws:kafkaconnect:us-east-2:976836375963:worker-configuration/dts-cdc-src-worker/c38b83cd-7e32-473e-a569-12fbbe47dc39-3"
+        "workerConfigurationArn": "arn:aws:kafkaconnect:us-east-2:redacted:worker-configuration/dts-cdc-src-worker/c38b83cd-7e32-473e-a569-12fbbe47dc39-3"
     }
 }
