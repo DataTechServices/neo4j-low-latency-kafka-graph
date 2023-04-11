@@ -1,0 +1,4 @@
+kptest.p1.1024byt.3mm:3000000 records sent, 11747.844271 records/sec (11.47 MB/sec), 2596.80 ms avg latency, 3247.00 ms max latency, 2572 ms 50th, 2856 ms 95th, 3161 ms 99th, 3232 ms 99.9th.
+kptest.p1.200byt.3mm:3000000 records sent, 59108.641683 records/sec (11.27 MB/sec), 2585.75 ms avg latency, 2943.00 ms max latency, 2653 ms 50th, 2836 ms 95th, 2909 ms 99th, 2939 ms 99.9th.
+kptest.p16.1024byt.3mm:3000000 records sent, 79145.231500 records/sec (77.29 MB/sec), 376.76 ms avg latency, 1374.00 ms max latency, 191 ms 50th, 1081 ms 95th, 1200 ms 99th, 1315 ms 99.9th.
+kptest.p16.200byt.3mm:3000000 records sent, 354484.225452 records/sec (67.61 MB/sec), 186.23 ms avg latency, 891.00 ms max latency, 109 ms 50th, 608 ms 95th, 811 ms 99th, 867 ms 99.9th.

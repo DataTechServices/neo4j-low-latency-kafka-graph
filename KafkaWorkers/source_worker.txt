@@ -1,0 +1,9 @@
+key.converter=org.apache.kafka.connect.storage.StringConverter
+value.converter=org.apache.kafka.connect.storage.StringConverter
+producer.max.request.size=2097152
+max.poll.records=5000 
+tasks.max=1 
+producer.batch.size=32768
+offset.storage.topic=msk-cdc-source-offset-topic
+reconnect.backoff.ms=1000 
+reconnect.backoff.max.ms=5000

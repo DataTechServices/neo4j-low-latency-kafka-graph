@@ -1,0 +1,10 @@
+echo '{"before":null,"after":{"id":4047,"category":"email","sourceId":"304","sourceName":"no-reply@accounts.go","targetId":"1","targetName":"owenr@dts5280.com","eventdt":1674323557000,"relationshipType":"SENT","node_properties":"{subject:\"2-Step Verification turned on\" , date:2023-01-21 17:52:37,msg_id:WuXi8mneCufjBvxy49RQ}","subject_txt":"2-Step Verification turned on"},"source":{"version":"1.8.1.Final","connector":"mysql","name":"mskdev_cdc","ts_ms":1674335539000,"snapshot":"false","db":"mskdev","sequence":null,"table":"cdc_outbox","server_id":1691652969,"gtid":null,"file":"mysql-bin-changelog.002073","pos":892312,"row":14,"thread":null,"query":null},"op":"c","ts_ms":1674335539556,"transaction":null}' > /tmp/file$$
+set -x
+sed   's/{"/{/g' /tmp/file$$
+sed  's/":/:/g' /tmp/file$$
+sed  's/,"/,/g' /tmp/file$$
+sed  's/null/'\'' '\''/g' /tmp/file$$
+sed  's/}$/},/g' /tmp/file$$
+sed  '$s/},$/}/' /tmp/file$$
+sed  '1 i\WITH {events: [' /tmp/file$$
+sed  -e '$a ]} as msg \n unwind msg.events as event \n return event; \n ' /tmp/file$$

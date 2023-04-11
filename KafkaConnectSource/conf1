@@ -1,0 +1,11 @@
+capacity -  Designates a provisioned or dynamic capacity configuration.
+connectorConfiguration - 
+connectorName - 
+kafkaCluster - 
+kafkaClusterClientAuthentication - 
+kafkaClusterEncryptionInTransit - 
+kafkaConnectVersion - 
+logDelivery - 
+plugins - 
+serviceExecutionRoleArn - 
+workerConfiguration

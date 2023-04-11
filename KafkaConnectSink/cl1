@@ -1,0 +1,18 @@
+cp $1 /tmp/fileXX
+set -x
+fixed=$(egrep '^WITH {events' /tmp/fileXX)
+status=$?
+if ! [ $status -eq 1 ]; then
+echo "$1 appears to have been updated"
+echo $fixed
+exit 0
+fi
+sed -i  's/{"/{/g' /tmp/fileXX
+sed -i 's/":/:/g' /tmp/fileXX
+sed -i 's/,"/,/g' /tmp/fileXX
+sed -i 's/null/'\'' '\''/g' /tmp/fileXX
+sed  -i 's/}$/},/g' /tmp/fileXX
+sed  -i '$s/},$/}/' /tmp/fileXX
+sed -i '1 i\WITH {events: [' /tmp/fileXX
+sed -i -e '$a ]} as msg \n unwind msg.events as event \n return event; \n ' /tmp/fileXX
+cp /tmp/fileXX X${1}

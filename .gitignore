@@ -1,4 +1,3 @@
-/Plugins/
 /generic.iml
 /GraphNormalization.jpg
 /GraphNormalizationS.jpg
@@ -15,3 +14,8 @@
 /package-lock.json
 /gql/
 /node_modules/
+/ql/node_modules/
+/SourceDB/out/
+/ql/
+/ql/
+/kafka-graph/

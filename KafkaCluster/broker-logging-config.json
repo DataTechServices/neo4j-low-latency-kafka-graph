@@ -1,0 +1,14 @@
+{
+  "BrokerLogs": {
+    "CloudWatchLogs": {
+      "Enabled": true
+    },
+    "Firehose": {
+      "Enabled": false
+    },
+    "S3": {
+      "Bucket": "s3://dts5280-aws-s3/msktest",
+      "Enabled": true
+    }
+  }
+}

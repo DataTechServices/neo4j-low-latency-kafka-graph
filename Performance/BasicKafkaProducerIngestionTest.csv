@@ -1,0 +1,7 @@
+Test,Partitions,Record Size / bytes,input count,records/sec,Ratio on Partition w/Fix Size,,Ratio on Size w/Fixed Partition,MB/sec,ms avg latency,Ratio on Avg Latency by Partition,ms max latency,Ratio on Max Latency by Partition,ms 50th,ms 95th,ms 99th,ms 99.9th,
+kptest.p1.256byt.3mm,1,256,3000000,46234.22,,,,(11.29 MB/sec),2615.52,,3300.00,,2648,2905,3210,3267,
+kptest.p1.1024byt.3mm,1,1024,3000000,11747.84,,,3.94,(11.47 MB/sec),2596.80,,3247.00,,2572,2856,3161,3232,
+kptest.p8.256byt.3mm,8,256,3000000,166583.37,3.60,,,(40.67/sec),660.48,3.96,2042.00,1.62,476,1924,1988,2025,
+kptest.p8.1024byt.3mm,8,1024,3000000,48435.53,4.12,,3.44,(47.30MB/sec),617.43,4.21,3024,1.07,18,2371,2653,2967,
+kptest.p16.256byt.3mm,16,256,3000000,298151.46,6.45,,,(72.79 MB/sec),306.06,8.55,1175.00,2.81,224,845,1087,1153,
+kptest.p16.1024byt.3mm,16,1024,3000000,79145.23,6.74,77.29,3.77,(77.29 MB/sec),376.76,6.89,1374.00,2.36,191,1081,1200,1315,

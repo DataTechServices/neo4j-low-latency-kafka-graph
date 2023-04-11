@@ -1,0 +1,81 @@
+"connectorConfiguration": 
+{
+// Refencing the debezim plugin library
+"connector.class": "io.debezium.connector.mysql.MySqlConnector",
+
+// Source database address   and credentials
+"database.hostname": "dts-aws-msk.xxx.xxx-xxx-2.xxx.amazonaws.com",
+"database.port": "3306",
+"database.server.id": "<9 digit #>",
+"database.server.name": "mskdev_cdc",
+"database.user": "admin",
+"database.password": "!@#!@#!@#",
+
+// Establishes the tabvles and columns to be included in the topic.
+"database.include.list": "mskdev",
+"table.include.list": "mskdev.cdc_msk_test",
+"column.include.list": " mskdev.cdc_msk_test.id, mskdev.cdc_msk_test.ue_id, 
+	mskdev.cdc_msk_test.ue_name, mskdev.cdc_msk_test.ue_count, 
+	mskdev.cdc_msk_test.cdc_modified_ts, mskdev.cdc_msk_test.cdc_status",
+
+// Specify the event message format (json more verbose then avro but easier first deploy)
+"key.converter": "org.apache.kafka.connect.storage.StringConverter",
+"key.converter.schemas.enable": "false",
+"value.converter": "org.apache.kafka.connect.json.JsonConverter",
+"value.converter.schemas.enable": "false",
+
+// Error behavior ensure errors.log.<enable,inc.msg> is true for improving visability and in this case infinite retries.
+"errors.log.enable": "true",
+"errors.log.include.messages": "true",
+"errors.retry.delay.max.ms": "10000",
+"errors.retry.timeout": "-1",
+"errors.tolerance": "all",
+
+
+
+"database.history.kafka.bootstrap.servers": "b-1.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
+"database.history.kafka.topic": "mskdcdc_history",
+"database.history.store.only.captured.tables.ddl": "true",
+
+"database.whitelist": "mskdev",
+"errors.log.enable": "true",
+"errors.log.include.messages": "true",
+"errors.retry.delay.max.ms": "10000",
+"errors.retry.timeout": "-1",
+"errors.tolerance": "all",
+"include.schema.changes": "false",
+// Tasks specify the number of threads reading against the MySQL binlog.  Only 1 allowed
+"tasks.max": "1",
+// Performance and pooling activity
+"linger.ms": "30", // how long to wait for additional binlog records
+"poll.interval.ms": "50", // poll the log every 50 ms looking for changes
+"max.batch.size": "10001", // max number of events to grab
+"max.poll.records": "10000",
+"max.queue.size": "20000",
+// Research your specific needs for snapshot processing; custom snapshots are available.
+"snapshot.mode": "when_needed",
+
+"reconnect.backoff.max.ms": "1000",
+"reconnect.backoff.ms": "50",
+"request.timeout.ms": "120000",
+"retries": "5",
+"retry.backoff.ms": "100",
+"table.ignore.builtin": "true",
+
+// acks configures the number of write confirmations to the primary and replica logs before completing.
+"acks": "1",
+// Identify how many partitions/copies and replicas to use for non-prior defined topics  
+"topic.creation.default.partitions": "1",
+"topic.creation.default.replication.factor": "3",
+// Clean up
+"topic.creation.default.cleanup.policy": "compact",
+"topic.creation.default.compression.type": "lz4",
+
+"transforms": "topicname,route",
+"transforms.route.language": "jsr223.groovy",
+"transforms.route.topic.expression": "(value.op in ['c','u','d'] )   ? topic : null",
+"transforms.route.type": "io.debezium.transforms.ContentBasedRouter",
+"transforms.topicname.regex": "([^.]+)\.([^.]+)\.([^.]+)",
+"transforms.topicname.replacement": "msk_$3",
+"transforms.topicname.type": "org.apache.kafka.connect.transforms.RegexRouter"
+}

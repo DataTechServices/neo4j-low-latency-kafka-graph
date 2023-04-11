@@ -1,0 +1,58 @@
+#!/bin/bash
+set -x
+# This will attempt to build the Mysql debezium source worker on the MSK Cluster specificed by $BrokerList env. variable.
+#
+set_msk() {
+	# Get the cluster name and arn; add logic if multiple MSK Clusters exist
+	lines=$(aws kafka  list-clusters-v2|jq -r '  .ClusterInfoList[] | [ .ClusterName, .ClusterArn , .Provisioned.ZookeeperConnectString ] |@tsv ')
+	arrIN=($lines)
+	name=${arrIN[0]}
+	arn=${arrIN[1]}
+	zoo=${arrIN[2]}
+	
+	# knowning the cluster arn the script then looks for the MSK Bootstrap nodes 
+	# which will inform subsequent AWS Kafka scripting which cluster to contact.
+	#
+	
+	#BrokerList=$(aws kafka  get-bootstrap-brokers --cluster-arn ${arn}|jq -r '.BootstrapBrokerString')
+	BrokerList=$(aws kafka  get-bootstrap-brokers --cluster-arn ${arn}|jq -r '[ .BootstrapBrokerString]' )
+}
+
+set_msk
+if [ -z $BrokerList ]; then
+	echo "Broker list not set: $BrokerList"
+	exit
+fi
+
+#set -x
+echo "Using Brokers:  $BrokerList"
+if [ ! -f source_worker.txt ]; then
+	echo "source_worker.txt not found"
+	exit
+fi
+
+
+#parm64=$(cat source_worker.txt | base64 -w)
+parm64=$(cat source_worker.txt | base64 )
+wrk_desc="CDC Source Worker with Offset (neo4j)"
+wrk_name="cdc-source-worker-offset-v2"
+
+echo "Creating ${wrk_name} "
+
+cat source_worker.txt
+
+aws kafkaconnect list-worker-configurations  |jq -r '.workerConfigurations[] | [.name, .workerConfigurationArn] | @csv'  |egrep "\"$wrk_name\"" >  ${wrk_name}.arn
+
+if grep -q "\"$wrk_name\"" ${wrk_name}.arn;  then
+	echo "Status  $?"
+	echo "${wrk_name} exists use below for attaching worker profile to Connector Configuration "
+	cat ${wrk_name}.arn
+	aws kafkaconnect create-worker-configuration --description "${wrk_desc}" --name "${wrk_name}" --properties-file-content  "${parm64}"
+	aws kafkaconnect list-worker-configurations  |jq -r '.workerConfigurations[] | [.name, .workerConfigurationArn] | @csv'  |egrep "\"${wrk_name}\"" >  ${wrk_name}.arn
+else
+	echo "Status  $?"
+	aws kafkaconnect create-worker-configuration --description "${wrk_desc}" --name "${wrk_name}" --properties-file-content  "${parm64}"
+	aws kafkaconnect list-worker-configurations  |jq -r '.workerConfigurations[] | [.name, .workerConfigurationArn] | @csv'  |egrep "\"${wrk_name}\"" >  ${wrk_name}.arn
+	echo "${wrk_name} created use below for attaching worker profile to Connector Configuration "
+	cat ${wrk_name}.arn
+fi
