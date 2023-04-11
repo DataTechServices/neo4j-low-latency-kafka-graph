@@ -1,0 +1,100 @@
+{
+  "connectorConfiguration": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "// Errors":  "Ensure creation and running connectors write errors to cloud watch.",
+    "errors.log.include.messages": "true",
+    "errors.log.enable": "true",
+    "// Credentials":  "Access secrets manager for MySQL credentials; Worker must be configured with SecMgr libs.",
+    "database.user": "${secretManager:}",
+    "database.password": "${secretManager:}",
+    "// Transforms":  "Use SMT/content filtering exclude messages based upon values.",
+    "// Transforms": "Route is one technique for routing the incoming event to a new topic name",
+    "transforms": "topicname,route",
+    "transforms.route.language": "jsr223.groovy",
+    "transforms.route.type": "io.debezium.transforms.ContentBasedRouter",
+    "transforms.route.topic.expression": "(value.op in ['c','u','d'] )   ? topic : null ",
+    "transforms.topicname.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.topicname.replacement": "int_$3",
+    "transforms.topicname.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+    "// Default Topic Parameters":  "Topics maybe pre-created to automatically so, e.g. new tables may generate new topics",
+    "topic.creation.default.partitions": "1",
+    "topic.creation.default.compression.type": "lz4",
+    "topic.creation.default.replication.factor": "3",
+    "// AWS/MSK Brokers ":  "Provide the list of brokers,",
+    "database.history.kafka.bootstrap.servers": "<bootstrap server list>:9092",
+    "// Polling ":  "Number of records or bytes to return from the poll() call/Time between polling",
+    "max.poll.records": "10000",
+    "max.batch.size": "10001",
+    "poll.interval.ms": "50",
+    "// Topic Replicas ":  "When confirmation of write to the topic is confirmed (leader and/or additional replicas)",
+    "acks": "1",
+    "// Scalability ":  "For Source Connectors to MySQL only 1 connector thread can read the binlog at a time.",
+    "tasks.max": "1",
+    "// Database Server Info": "Server Connectivity Information",
+    "database.server.id": "XXXXXXXXX",
+    "database.server.name": "<connector db server name>",
+    "database.port": "3306",
+    "database.hostname": "<hostname/ip address>",
+    "// Database Table/Column Selection": "Allows for only specific tables to be selected for Kafka topics",
+    "database.whitelist": "<mysql schema name>",
+    "database.include.list": "<mysql schema name>",
+    "table.include.list": "<mysql schema name>.<table name>, <mysql schema name>.<table name2>,etc ",
+    "column.include.list": "<mysql schema name>.<table name1>.<column name>, <mysql schema name>.<table name1>.<column name>,<et al>  ,
+
+  "connectorName": "debezium-src-mysql",
+  "// No Auto Scaling for Debezium Connector ":  "Only one reader of the binlog at a time",
+  "capacity": {
+    "provisionedCapacity": {
+      "mcuCount": 1,
+      "workerCount": 1
+    }
+  },
+  "kafkaCluster": {
+    "apacheKafkaCluster": {
+      "bootstrapServers": "<msk-cluster-server-id1>:9092,<msk-cluster-server-id1>:9092,<msk-cluster-server-id1>9092",
+      "vpc": {
+        "securityGroups": [
+          "secgrp-xxxx"
+        ],
+        "subnets": [
+          "subnet-1",
+          "subnet-2"
+        ]
+      }
+    }
+  },
+  "//Encryption :":"Adding encryption between MySQL and the AWS/MSK Cluster",
+  "kafkaClusterClientAuthentication": {
+    "authenticationType": "NONE"
+  },
+  "//Intra Cluster Encryption :":"Adding encryption between the AWS/MSK Cluster Hosts",
+    "kafkaClusterEncryptionInTransit": {
+    "encryptionType": "PLAINTEXT"
+  },
+  "kafkaConnectVersion": "2.7.1",
+  "logDelivery": {
+    "workerLogDelivery": {
+      "cloudWatchLogs": {
+        "enabled": true,
+        "logGroup": "<msk-sink>/debezium-src-connector"
+      }
+    }
+  },
+  "plugins": [
+    {
+      "customPlugin": {
+        "// Debezium Plugin zip file":"Pre-constructed zip is feature dependant and critical see plugin doc",
+        "customPluginArn": "<arn of the S3 location of debezium plugin package>",
+        "revision": 1
+      }
+    }
+  ],
+  "serviceExecutionRoleArn": "<arn of assigned role with access to identified resources>",
+  "workerConfiguration": {
+    "revision": 1,
+    "// Worker Config": "Provides configuration of the Worker JVM that runs the Kafka Connector",
+    "workerConfigurationArn": "arn:aws:kafkaconnect:us-east-1:038247565328:worker-configuration/scival-cdc-nonprod-int-src-worker-static-offset/337f46b9-75b9-414b-a775-76e25980f875-2"
+  }
+}

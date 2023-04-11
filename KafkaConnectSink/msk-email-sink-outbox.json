@@ -1,0 +1,86 @@
+{
+  "connectorConfiguration": {
+    "connector.class": "streams.kafka.connect.sink.Neo4jSinkConnector",
+    "kafka.key.deserializer": "org.apache.kafka.common.serialization.ByteArrayDeserializer",
+    "group.id": "msk-outbox-sink",
+    "kafka.value.deserializer": "org.apache.kafka.common.serialization.ByteArrayDeserializer",
+    "topics": "msk_cdc_email",
+    "tasks.max": "5",
+    "max.poll.records":"1400",
+    "batch.size": "400",
+    "fetch.max.wait.ms":"200",
+    "fetch.min.bytes":"1",
+    "errors.log.enable": "true",
+    "errors.retry.delay.max.ms": "6000",
+    "errors.tolerance": "all",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true",
+    "errors.retry.timeout": "-1",
+    "kafka.bootstrap.servers": "b-1.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
+    "neo4j.encryption.enabled": "false",
+    "neo4j.database": "dts",
+    "neo4j.server.uri": "neo4j://ec2-3-137-136-24.us-east-2.compute.amazonaws.com:7687",
+    "neo4j.topic.cypher.msk_cdc_email":"WITH event as evt_msg CALL { WITH evt_msg WITH evt_msg WHERE ( evt_msg.after.category IN ['email'] ) MERGE (from:User {id:evt_msg.after.sourceName}) SET from.userId = evt_msg.after.sourceId MERGE (to:User {id:evt_msg.after.targetName}) SET to.userId = evt_msg.after.targetId MERGE (e:Email {id:evt_msg.after.msg_id}) SET e = apoc.convert.fromJsonMap(evt_msg.after.node_properties) MERGE(from)-[:SENT]->(e) MERGE(e)-[:RECEIVED]->(to) RETURN count(*) as type1 } return type1",
+    "neo4j.authentication.basic.username": "neo4j",
+    "neo4j.authentication.basic.password": "orob"
+  },
+  "connectorName": "msk-cdc-sink-email-v1",
+  "kafkaCluster": {
+    "apacheKafkaCluster": {
+      "bootstrapServers": "b-1.scival-cert-msk.07ps4e.c9.kafka.us-east-1.amazonaws.com:9094,b-3.scival-cert-msk.07ps4e.c9.kafka.us-east-1.amazonaws.com:9094,b-6.scival-cert-msk.07ps4e.c9.kafka.us-east-1.amazonaws.com:9094",
+      "bootstrapServers": "b-1.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
+      "vpc": {
+  	"securityGroups": [
+    		"sg-0dcc18a67fb9fb463",
+    		"sg-4b29653c"
+  	],
+  	"subnets": [
+    		"subnet-ee51ea85",
+    		"subnet-b2257dfe",
+    		"subnet-586a9b25"
+ 	 ]
+     }
+    }
+  },
+  "capacity": {
+    "autoScaling": {
+      "maxWorkerCount": 2,
+      "mcuCount": 1,
+      "minWorkerCount": 1,
+      "scaleInPolicy": {
+        "cpuUtilizationPercentage": 20
+      },
+      "scaleOutPolicy": {
+        "cpuUtilizationPercentage": 80
+      }
+    }
+  },
+  "kafkaConnectVersion": "2.7.1",
+  "logDelivery": {
+    "workerLogDelivery": {
+      "cloudWatchLogs": {
+                "enabled": true,
+                "logGroup": "msk-test"
+        }
+    }
+  },
+  "plugins": [
+    {
+      "customPlugin": {
+        "customPluginArn": "arn:aws:kafkaconnect:us-east-2:976836375963:custom-plugin/neo4j-kafka-connect-v2-dev/8a59b079-7a14-40f6-a710-1f1be565bfaa-3",
+        "revision": 1
+      }
+    }
+  ],
+  "kafkaClusterEncryptionInTransit": {
+    "encryptionType": "PLAINTEXT"
+  },
+  "kafkaClusterClientAuthentication": {
+    "authenticationType": "NONE"
+  },
+  "serviceExecutionRoleArn": "arn:aws:iam::976836375963:role/MSKTestExecutionRole",
+  "workerConfiguration": {
+    "revision": 1,
+    "workerConfigurationArn": "arn:aws:kafkaconnect:us-east-2:976836375963:worker-configuration/cdc-sink-worker-v1/95c1b294-3790-4edf-a64d-5d9ebcc00a37-3"
+  }
+}

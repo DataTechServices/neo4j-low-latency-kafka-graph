@@ -1,1 +1,21 @@
-/Plugins/
+/generic.iml
+/GraphNormalization.jpg
+/GraphNormalizationS.jpg
+/graphTransform.png
+/KafkaLag.jpg
+/lagImage.jpg
+/Neo4j x MSK.jpg
+/Neo4j x MSK2.jpg
+/Neo4j x MSK3.jpg
+/Neo4j x MSKHL.jpg
+/neo4j-kafka1.jpg
+/neo4j-kafka2.jpg
+/neo4j-kafka-full.jpg
+/package-lock.json
+/gql/
+/node_modules/
+/ql/node_modules/
+/SourceDB/out/
+/ql/
+/ql/
+/kafka-graph/

@@ -1,0 +1,43 @@
+#!/bin/bash
+# set -x
+# this script can be invoked by shell profiles or explicitly
+# when looking at the AWS MSK cluster.
+# return the associated MSK cluster variables
+#
+# return the set of key values
+#
+# Get the cluster name and arn; add logic if multiple MSK Clusters exist
+lines=$(aws kafka  list-clusters-v2|jq -r '  .ClusterInfoList[] | [ .ClusterName, .ClusterArn , .Provisioned.ZookeeperConnectString ] |@tsv ')
+arrIN=($lines)
+name=${arrIN[0]}
+arn=${arrIN[1]}
+zoo=${arrIN[2]}
+
+# knowning the cluster arn the script then looks for the MSK Bootstrap nodes 
+# which will inform subsequent AWS Kafka scripting which cluster to contact.
+#
+
+#BrokerList=$(aws kafka  get-bootstrap-brokers --cluster-arn ${arn}|jq -r '.BootstrapBrokerString')
+BrokerList=$(aws kafka  get-bootstrap-brokers --cluster-arn ${arn}|jq -r '[ .BootstrapBrokerString]') 
+Brokers=$(aws kafka  get-bootstrap-brokers --cluster-arn ${arn}|jq -r '[ .BootstrapBrokerString] |  @tsv'|sed 's/,/	/g' )
+set -x
+# arrIN=(${BrokerList/,/\t/})
+
+arrIN=($BrokerList)
+
+echo "BROKER: $BrokerList"
+echo "arrIN : $arrIN"
+echo ${arrIN[0]}
+exit
+if [ -z $BrokerList ]; then
+        echo "ERROR: failed to get BrokerList"
+        echo "ERROR: MSK: ${name} ARN: Value$arn"
+#        return 1
+else
+        export ClusterArn=${arn}
+        export BrokerList=${BrokerList}
+        export ZookeeperList=${zoo}
+        export ClusterName=${name}
+#        return 0
+fi
+

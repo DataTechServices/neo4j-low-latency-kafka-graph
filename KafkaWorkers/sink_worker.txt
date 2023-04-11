@@ -1,0 +1,6 @@
+key.converter=org.apache.kafka.connect.storage.StringConverter
+value.converter=org.apache.kafka.connect.storage.StringConverter
+producer.max.request.size=2097152
+producer.batch.size=32768
+tasks.max=4
+consumer.max.poll.records=5000

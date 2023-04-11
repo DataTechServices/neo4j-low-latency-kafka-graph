@@ -1,0 +1,38 @@
+{
+        "InstanceType": "kafka.t3.small",
+        "BrokerAZDistribution": "DEFAULT",
+        "ClientSubnets": [
+		"subnet-ee51ea85",
+		"subnet-586a9b25"
+            ],
+        "SecurityGroups": [
+                "sg-4b29653c"
+        ],
+        "StorageInfo": {
+                "EbsStorageInfo": {
+                    "VolumeSize": 10
+                }
+        },
+	"ConnectivityInfo": {
+		"PublicAccess": {
+			"Type": "DISABLED"
+		}
+	},
+	"ClientAuthentication": {
+		"Sasl": {
+			"Scram": {
+			"Enabled": false
+		},
+		"Iam": {
+			"Enabled": true
+		}
+		},
+		"Tls": {
+			"CertificateAuthorityArnList": [],
+			"Enabled": false
+		},
+		"Unauthenticated": {
+			"Enabled": true
+		}
+	}
+}
