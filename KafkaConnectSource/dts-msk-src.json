@@ -62,11 +62,11 @@
             "bootstrapServers": "b-1.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092,b-2.dtscdcowrcluster.leit85.c6.kafka.us-east-2.amazonaws.com:9092",
 	"vpc": {
                 "securityGroups": [
-                    "sg-4b29653c"
+                    "sg-<redacted-secgroup>"
                 ],
                 "subnets": [
-                    "subnet-ee51ea85",
-                    "subnet-586a9b25" 
+                    "subnet-<redacted-subnet>",
+                    "subnet-<redacted-subnet>"
                 ]
             }
         }
@@ -79,25 +79,29 @@
     },
     "kafkaConnectVersion": "2.7.1",
     "logDelivery": {
-        "workerLogDelivery": {
-            "s3": {
-                "bucket": "dts5280-aws-s3",
-                "enabled": true,
-                "prefix": "msk"
-            }
+      "workerLogDelivery": {
+        "cloudWatchLogs": {
+          "enabled": true,
+          "logGroup": "msk-test"
+        },
+        "s3": {
+          "bucket": "<redacted-bucket>-aws-s3",
+          "enabled": true,
+          "prefix": "msk"
         }
+      }
     },
     "plugins": [
         {
             "customPlugin": {
-                "customPluginArn": "arn:aws:kafkaconnect:us-east-2:976836375963:custom-plugin/debezium-1-8-0-mysql-scripting/c9961a8e-a09b-4ae7-a541-c46dcce65e0f-3",
+                "customPluginArn": "arn:aws:<redacted-plugin>/debezium-1-8-0-mysql-scripting/c9961a8e-a09b-4ae7-a541-c46dcce65e0f-3",
                 "revision": 1
             }
         }
     ],
-    "serviceExecutionRoleArn": "arn:aws:iam::976836375963:role/MSKTestExecutionRole",
+    "serviceExecutionRoleArn": "arn:aws:iam::<redacted-aws-role>:role/MSKTestExecutionRole",
     "workerConfiguration": {
         "revision": 1,
-        "workerConfigurationArn": "arn:aws:kafkaconnect:us-east-2:976836375963:worker-configuration/cdc-source-worker-offset/6bf436da-ceaa-48b2-b0e3-186eb8b50ad6-3"
+        "workerConfigurationArn": "arn:aws:kafkaconnect:us-east-2:<redacted-worker-arn>:worker-configuration/cdc-source-worker-offset/<redacted-worker-object>-3"
     }
 }

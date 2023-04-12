@@ -95,6 +95,6 @@
   "workerConfiguration": {
     "revision": 1,
     "// Worker Config": "Provides configuration of the Worker JVM that runs the Kafka Connector",
-    "workerConfigurationArn": "arn:aws:kafkaconnect:us-east-1:038247565328:worker-configuration/scival-cdc-nonprod-int-src-worker-static-offset/337f46b9-75b9-414b-a775-76e25980f875-2"
+    "workerConfigurationArn": "arn:aws:<redacted worker arn>:worker-configuration/<redacted worker arn>-offset/134143141-2"
   }
 }

@@ -1,26 +1,15 @@
 ## Source Database Configuration
-This database instance represents the source of content for replication 
-and requires specific configuration settings to ensure access and transaction 
-details are set to ensure tx observability as well as access.
-For this example debezium is being used as for 
-Kafka Connect plugin and MySQL as the source instance, however the process for 
-configuring alternative RDBMS sources is quite similar.   Please see the below 
-debezium documentation for configuring alternative source RDBMS databases.
-
+This database instance represents the source of content for replication and requires specific configuration settings to ensure access and full transaction details are sent to the MySQL binlog tx file.  For this example debezium is being used as for Kafka Connect plugin and MySQL as the source instance, however the process for configuring alternative RDBMS sources is quite similar.   Please see the below debezium documentation for configuring alternative RDBMS databases.
+<br>
+<br>
+Note this configuration is related to the Source RDBMS MySQL instance, see the KafkaConnectSource directory for KafkaConnect setup. 
 #### Debezium connector for MySQL Documentation
 -   https://debezium.io/documentation/reference/stable/connectors/mysql.html
-
+ <br>
 TL&DR 
-Below represents the content and 
-configuration necessary for configuraiton,
-in addition a database user account must 
-be create or authorized to support the 
-below functionality.   For a standard RDS / MySQL 
-instance you will like need to update the 
-DB instance parameter group settings for enabling binlog 
-formats requiring a new or updated parameter group and subsequent 
-reboot of the RDS instance.
-
+Below represents the content and configuration necessary for configuration,
+in addition a database user account must  be create or authorized to support the below functionality.   For a standard RDS / MySQL instance you will like need to update the  DB instance parameter group settings for enabling binlog formats requiring a new or updated parameter group and subsequent  reboot of the RDS instance.
+  <br>
 * show variables like 'binlog_format'   ; -- ROW
 * show variables like 'binlog_row_image'  ; -- FULL
 * show variables like 'log_bin'  ; -- ON
@@ -72,7 +61,7 @@ In these  larger transactions situations, these
 changes to the binlog
  parameters can cause higher latency in the MySQL
 database effecting the driving application as well.
-Finally it must also be said that this replication 
+Finally, it must also be said that this replication 
 scheme is highly reliable and 
 if Service Levels associated with the
 source and/or target application(s) are not strict
