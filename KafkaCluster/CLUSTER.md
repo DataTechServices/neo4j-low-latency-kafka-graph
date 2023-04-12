@@ -1,5 +1,23 @@
+#### Configuring MSK Cluster
+The create-cluster.sh script will use three json configuration 
+files to construct your test MSK cluster.  Note this is NOT FREE and 
+you will incur charges against you AWS account so be sure to tear down 
+all components (i.e. Cluster, Workers, Connectors, MySQL, Neo4j) 
+<br>
+Prerequisites include the subnets and security groups that need to be aligned
+with your source and target data stores; where these need to be inserted into
+the associated json configurations.  
+<br>
+Once complete use the AWS Console to confirm your configurations.
+<br>
+Note: you can use the AWS MSK Console 
 
-Configuring EC2 host along side MSK cluster
+Here is a great article on standing up the AWS MSK Cluster (it includes 
+creation of generic client machines which we'll substitute MySQL and the 
+Neo4j server.
+
+https://medium.com/aws-in-plain-english/it-cant-get-simpler-than-this-setup-kafka-cluster-in-aws-431cd6cf914d
+
 
 
 https://docs.aws.amazon.com/msk/latest/developerguide/mkc-create-topic.html

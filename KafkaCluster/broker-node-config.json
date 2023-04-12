@@ -2,11 +2,11 @@
         "InstanceType": "kafka.t3.small",
         "BrokerAZDistribution": "DEFAULT",
         "ClientSubnets": [
-		"subnet-ee51ea85",
-		"subnet-586a9b25"
+		"subnet-<redacted-subnet1>",
+		"subnet-<redacted-subnet2>"
             ],
         "SecurityGroups": [
-                "sg-4b29653c"
+                "sg-<redacted-sec-group>"
         ],
         "StorageInfo": {
                 "EbsStorageInfo": {
