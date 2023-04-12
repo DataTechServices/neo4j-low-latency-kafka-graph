@@ -19,3 +19,5 @@
 /ql/
 /ql/
 /kafka-graph/
+/Plugins/Neo4jKafkaConnect/
+/Plugins/Debezium/
