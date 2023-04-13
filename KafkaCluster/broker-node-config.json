@@ -3,7 +3,8 @@
         "BrokerAZDistribution": "DEFAULT",
         "ClientSubnets": [
 		"subnet-<redacted-subnet1>",
-		"subnet-<redacted-subnet2>"
+		"subnet-<redacted-subnet2>",
+		"subnet-<redacted-subnet3>"
             ],
         "SecurityGroups": [
                 "sg-<redacted-sec-group>"

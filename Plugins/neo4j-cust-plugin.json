@@ -1,0 +1,11 @@
+{
+   "contentType": "ZIP",
+   "description": "Neo4j v2 Kafka Connect plugin; included custom guava libs",
+   "location": { 
+	"s3Location": {
+		"bucketArn": "arn:aws:s3:::dts5280-aws-s3",
+		"fileKey": "msk/plugins/neo4j-kafka-connect-2-dev.zip"
+	}
+   },
+   "name": "neo4j-kafka-connect-v2-dev"
+}
